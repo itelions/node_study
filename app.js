@@ -25,6 +25,7 @@ app.use('/users', require('./routes/users'));
 app.use('/promise', require('./routes/promise'));
 app.use('/new_router', require('./routes/new_router'));
 app.use('/mongotest', require('./routes/mongotest'));
+app.use('/jsonp', require('./routes/jsonp'));
 //获取页面
 app.use('/crowler', require('./routes/crowler'));
 // app.use('*',function(req, res, next){
