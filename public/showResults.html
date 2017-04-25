@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>查看数据</title>
+    <script src="javascripts/jquery.1.9.1.min.js"></script>
+    <style>
+        *{margin: 0;padding: 0;}
+        body,html{font-family: 'Microsoft Yahei',sans-serif; font-size: 20px;}
+        section dl:nth-child(2n){background: #eee}
+        a{text-decoration: none; color: #d00; vertical-align: middle;margin-left: 1rem;}
+        dl{height: 3rem; padding: 1rem 0; overflow: hidden;position: relative;}
+        dt,dd{float: left}
+        dt{width: 3rem;text-align: center;height: 100%}
+        dt img{
+            background: gray;
+            width: 2.5rem;
+            border-radius: 50%;
+            position: relative;
+            top: 12px;
+        }
+        dd{
+            position: absolute;
+            left: 2.5rem;
+            right: 0;
+            height: 100%;
+            top: 0;
+        }
+        dd a{
+            position: absolute;
+            font-size: 1rem;
+            overflow: hidden;
+            left: 3rem;
+            right: 0;
+            top: 0;
+            display: inline-block;
+            height: 2rem;
+        }
+        h1{
+            text-align: center;
+            padding: 10px 0;
+            background: #c33;
+            color: #fff;
+            font-weight: normal;
+        }
+        h2{
+            height: 2rem;
+            line-height: 2rem;
+            position: relative;
+            font-weight: normal;
+        }
+        .title span{
+            background-color: darkorange;
+            border-radius: 3px;
+            padding: 0 5px;
+            font-size: 0.8rem;
+            height: 1.2rem;
+            line-height: 1.2rem;
+            display: inline-block;
+            vertical-align: middle;
+            color: #fff;
+        }
+        ul,li{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .info{height: 1rem;line-height: 1.8rem;}
+        .page{text-align: center;}
+        .page a{color:#000;}
+        .page a:hover,.page a.active{color:#d00}
+        .page span{vertical-align: bottom;margin-left: 0.6rem;cursor: default;}
+    </style>
+</head>
+<body>
+    <section>
+        <h1>精华帖</h1>
+        <section id="content"></section>
+        <section class="page">
+            <a href="showResults.html?page=1" class="prev">前10页</a>
+            <span>
+                <a href="">1</a>
+                <a href="">1</a>
+                <a href="">1</a>
+            </span>
+            <a href="showResults.html?page=1" class="next">后10页</a>
+        </section>
+    </section>
+    <script>
+         var newsize=$(window).width()/640*12;
+        $('html').css('font-size',newsize)
+        $(window).resize(function(e){
+            var newsize=$(this).width()/640*12;
+            $('html').css('font-size',newsize)
+        })
+
+        $('.prev').hide();
+        $('.next').hide();
+
+        var search=window.location.search.slice(1).split('&');
+
+        var query={};
+        for(var i=0;i<search.length;i++){
+            query[search[i].split('=')[0]]=search[i].split('=')[1];
+        }
+        console.log(query);
+        $.ajax('http://localhost:8186/crowler/get-item',{
+            data:query
+        })
+        .then(function(res){
+            console.log(res)
+            //渲染数据
+            var randerHtml='';
+            for(var i=0;i<res.data.length;i++){
+                var randerData=res.data[i];
+                var randerTemplate='<dl><dt><img src="'+randerData.avatar+'" alt="作者头像"></dt><dd><h2 class="title"><span class="tips">'+randerData.topic+'</span><a href="'+randerData.link+'" target="_blank">'+randerData.title+'</a></h2><div class="info">作者 : '+randerData.user_name+' 回复数量 : '+randerData.topic_size+'</div></dd></dl>';
+                randerHtml+=randerTemplate;
+            }
+            $('#content').html(randerHtml);
+            //处理分页
+            initpage(query.page,res.total);
+        })
+
+        function initpage(target,totalNum){
+            var pagelist=[];
+            target=parseInt(target)
+            var nowPage=target-5;
+            var total=Math.ceil(totalNum/12);
+            var randerHtml='';
+            if(nowPage<0)nowPage=1;
+            if(nowPage>total-9)nowPage=total-9;
+            var randerTime=10;
+            while(randerTime--){
+                if(nowPage>0&&nowPage<=total){
+                    pagelist.push(nowPage)
+                }
+                var isActive= nowPage==target?'active':'';
+                randerHtml+='<a class="'+isActive+'" href="showResults.html?page='+nowPage+'">'+nowPage+'</a>'
+                nowPage++;
+            }
+            
+            if(nowPage<=10){
+                randerHtml+='<span>...</span><a href="showResults.html?page='+total+'">'+total+'</a>';
+            }else if(nowPage>=total){
+                randerHtml='<a href="showResults.html?page='+1+'">'+1+'</a><span>...</span>'+randerHtml;
+            }else{
+                randerHtml='<a href="showResults.html?page='+1+'">'+1+'</a><span>...</span>'+randerHtml+'<span>...</span><a href="showResults.html?page='+total+'">'+total+'</a>';
+            }
+
+            if(target>10)$('.prev').show().attr('href','showResults.html?page='+(target-10));
+            if(target<total-9)$('.next').show().attr('href','showResults.html?page='+(target+10));
+
+            $('.page>span').html(randerHtml)
+        }
+    </script>
+</body>
+</html>

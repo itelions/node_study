@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div>
+		hello <%= title %>
+	</div>
+	<h1><%= message %></h1>
+	<ul>
+		<% for(var i=0;i<list.length;i++){ %>
+			<li>
+				<h2>姓名:<%= list[i].name %></h2>
+				<p>年龄:<%= list[i].age %></p>
+			</li>
+		<% } %>
+	</ul>
+</body>
+</html>
