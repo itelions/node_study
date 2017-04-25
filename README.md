@@ -4,7 +4,7 @@ nodejs+express+mongodb
  npm install <br> 
  npm start
 
-###locolhost:8186
+###locolhost:8186 <br>
 	####=>/crowler[post] 使用cheerio模块爬取rubyChina精华帖数据 <br> 
 		mongodb配置 test/exellent {user:'someone',pwd:'123456',roles:{[role:'readWrite',database:'test']}} <br> 
 		=>/get-item 分页获取数据(locolhost:8186/showResults.html?page=value查看结果) <br> 
