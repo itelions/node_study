@@ -1,8 +1,9 @@
 # node_study
 nodejs+express+mongodb
-
-### npm install <br>npm start 
-
+```c
+npm install 
+npm start 
+```
 #### locolhost:8186
 	=>/crowler[post] 使用cheerio模块爬取rubyChina精华帖数据 
 		mongodb配置 test/exellent {user:'someone',pwd:'123456',roles:{[role:'readWrite',database:'test']}}
