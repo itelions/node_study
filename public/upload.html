@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery.1.9.1.min.js"></script>
+</head>
+<body>
+	<input type="file" id="target">
+	<button class="upload">上传</button>
+	<script type="text/javascript">
+		$('.upload').on('click',function(){
+			var formData=new FormData();
+			formData.append("file", $("#target")[0].files[0]);
+			$.ajax({  
+			      url: 'http://192.168.1.165:8186/file',  
+			      type: 'POST',  
+			      data: formData,
+		          contentType: false,  
+		          processData: false,
+			      success: function (data) {  
+			          console.log(data);  
+			      },  
+			      error: function (data) {  
+			          console.log(data);  
+			      }  
+			 }); 
+		})
+	</script>
+</body>
+</html>

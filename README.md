@@ -19,3 +19,5 @@ npm start
 	=>/index 简单的模板渲染
 
 	=>/jsonp 简单的jsonp api
+
+	=>/file 文件上传功能后端 前端代码为public/upload.html
