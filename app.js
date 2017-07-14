@@ -19,7 +19,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//模板渲染
+//restc插件 
+// import restc
+const restc = require('restc');
+// use restc middleware
+app.use(restc.express());
+
+//路由
 app.use('/index', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/promise', require('./routes/promise'));
@@ -27,6 +33,7 @@ app.use('/new_router', require('./routes/new_router'));
 app.use('/mongotest', require('./routes/mongotest'));
 app.use('/jsonp', require('./routes/jsonp'));
 app.use('/file', require('./routes/file'));
+app.use('/super-agent', require('./routes/super-agent'));
 //获取页面
 app.use('/crowler', require('./routes/crowler'));
 // app.use('*',function(req, res, next){
