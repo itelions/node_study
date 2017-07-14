@@ -21,3 +21,5 @@ npm start
 	=>/jsonp 简单的jsonp api
 
 	=>/file 文件上传功能后端 前端代码为public/upload.html
+	
+	=>/super-agent 使用superagent模块做代理爬取wish详情页面
