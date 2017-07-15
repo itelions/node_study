@@ -34,6 +34,7 @@ app.use('/mongotest', require('./routes/mongotest'));
 app.use('/jsonp', require('./routes/jsonp'));
 app.use('/file', require('./routes/file'));
 app.use('/super-agent', require('./routes/super-agent'));
+app.use('/id-analysis', require('./routes/id-analysis'));
 //获取页面
 app.use('/crowler', require('./routes/crowler'));
 // app.use('*',function(req, res, next){

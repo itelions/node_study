@@ -23,3 +23,5 @@ npm start
 	=>/file 文件上传功能后端 前端代码为public/upload.html
 	
 	=>/super-agent 使用superagent模块做代理爬取wish详情页面
+
+	=>/id-analysis?id=value 分析身份证号得出 籍贯 生日 性别
