@@ -19,14 +19,14 @@ router.get('/', function(req, res, next) {
 	}
 
 	const formData = {
-		cid:'57ee4cf926444623bcd23658',
-		related_contest_count:9,
-		include_related_creator:false,
-		request_sizing_chart_info:true,
-		_buckets:'',
-		_experiments:'',
+		cid: req.query.wish_id || '57ee4cf926444623bcd23658',
+		related_contest_count: 9,
+		include_related_creator: false,
+		request_sizing_chart_info: true,
+		_buckets: '',
+		_experiments: '',
 	}
-	
+
 	request
 		.post('https://www.wish.com/api/product/get')
 		.set(headers)

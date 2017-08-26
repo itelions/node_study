@@ -26,38 +26,42 @@ const restc = require('restc');
 app.use(restc.express());
 
 //路由
-app.use('/index', require('./routes/index'));
-app.use('/users', require('./routes/users'));
-app.use('/promise', require('./routes/promise'));
-app.use('/new_router', require('./routes/new_router'));
-app.use('/mongotest', require('./routes/mongotest'));
-app.use('/jsonp', require('./routes/jsonp'));
-app.use('/file', require('./routes/file'));
-app.use('/super-agent', require('./routes/super-agent'));
-app.use('/id-analysis', require('./routes/id-analysis'));
-//获取页面
-app.use('/crowler', require('./routes/crowler'));
-// app.use('*',function(req, res, next){
-// 	res.sendfile('./public/index.html');
-// })
+const Routers = [
+	{ path: '/index', route: './routes/index' },
+	{ path: '/users', route: './routes/users' },
+	{ path: '/promise', route: './routes/promise' },
+	{ path: '/new_router', route: './routes/new_router' },
+	{ path: '/mongotest', route: './routes/mongotest' },
+	{ path: '/jsonp', route: './routes/jsonp' },
+	{ path: '/file', route: './routes/file' },
+	{ path: '/super-agent', route: './routes/super-agent' },
+	{ path: '/id-analysis', route: './routes/id-analysis' },
+	{ path: '/crowler', route: './routes/crowler' },
+	{ path: '/puppeteer', route: './routes/puppeteer' },
+]
+
+Routers.map(item => app.use(item.path, require(item.route)))
+	// app.use('*',function(req, res, next){
+	//  res.sendfile('./public/index.html');
+	// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Founds');
-  err.status = 404;
-  //next(err);
-  res.sendfile('./public/404.html');
+	var err = new Error('Not Founds');
+	err.status = 404;
+	//next(err);
+	res.sendfile('./public/404.html');
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.send('error');
+	// render the error page
+	res.status(err.status || 500);
+	res.send('error');
 });
 
 module.exports = app;
