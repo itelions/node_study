@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node-dev ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "node-dev ./bin/www",
+    "task":"node task"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -16,6 +18,7 @@
     "express": "~4.14.1",
     "jade": "~1.11.0",
     "latest": "^0.2.0",
+    "log4js": "^2.3.3",
     "mongodb": "^2.2.25",
     "morgan": "~1.7.0",
     "node-dev": "^3.1.3",
