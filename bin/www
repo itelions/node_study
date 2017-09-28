@@ -8,11 +8,16 @@ var app = require('../app');
 var debug = require('debug')('text-node:server');
 var http = require('http');
 
+var ExtraParams= require('../utils/ExtraParams')
+
 /**
  * Get port from environment and store in Express.
  */
+argv=ExtraParams();
+var port = normalizePort(argv.port || '8186');
 
-var port = normalizePort(process.env.PORT || '8186');
+// var minimist = require('minimist');
+// var args=minimist(process.argv.slice(2)); 
 app.set('port', port);
 
 /**

@@ -4,8 +4,11 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var ExtraParams = require('./utils/ExtraParams');
 var app = express();
+
+var argv=ExtraParams();
+if(argv.env)process.env.NODE_ENV=argv.env;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,13 +20,17 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public',express.static(path.join(__dirname, 'public')));
+// app.use('/static',express.static(path.join(__dirname, 'static')));
 
 //restc插件 
 // import restc
-const restc = require('restc');
-// use restc middleware
-app.use(restc.express());
+console.log(process.env.NODE_ENV)
+if(process.env.NODE_ENV=='development'){
+	const restc = require('restc');
+	// use restc middleware
+	app.use(restc.express());
+}
 
 //路由
 const Routers = [
