@@ -54,7 +54,7 @@ app.use(function(req, res, next) {
 	var err = new Error('Not Founds');
 	err.status = 404;
 	//next(err);
-	res.sendfile('./public/404.html');
+	res.sendFile('./public/404.html');
 });
 
 // error handler

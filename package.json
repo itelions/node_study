@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www --env=production",
     "dev": "node-dev ./bin/www",
+    "debug": "node-dev ./bin/www --port=8186",
     "task": "node task"
   },
   "dependencies": {

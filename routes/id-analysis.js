@@ -5,7 +5,7 @@ var fs = require('fs');
 
 router.get('/', function(req, res, next) {
 	console.log(req.cookies)
-	if (!req.query.id) res.send({
+	if (!req.query.id)return res.send({
 		message: 'id is undefined',
 		code: 404
 	})
@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 	res.cookie('setCookie','text', { httpOnly: true,});
 	const rep = new RegExp(/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/);
 
-	if (id.length != 18 || !rep.test(id)) res.send({
+	if (id.length != 18 || !rep.test(id))return res.send({
 		message: 'Invalid identity',
 		code: 404
 	});
